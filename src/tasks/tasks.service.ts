@@ -1,3 +1,4 @@
+// create: nest g service tasks --no-spec (g: generate, --no-spec: Không tạo file .spec.ts - file chứa các unit test dùng cho testing)
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
@@ -6,7 +7,7 @@ import { TaskRepository } from './task.repository';
 import { Task } from './task.entity';
 import { TaskStatus } from './task-status.enum';
 
-@Injectable()
+@Injectable() // @Injectable() decorator sẽ giúp Nest biết rằng đây là 1 provider (services, repositories. factories, helpers...)
 export class TasksService {
     constructor(
         @InjectRepository(TaskRepository)
@@ -34,7 +35,6 @@ export class TasksService {
         if (result.affected === 0) {
             throw new NotFoundException(`Task with ID "${id}" not found!`);
         }
-
     }
 
     async updateTaskStatus(id: number, status: TaskStatus) {
